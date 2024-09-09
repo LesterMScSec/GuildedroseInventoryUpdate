@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory Management</title>
+</head>
+<body>
+<h3> Sample The data entered and how it can be entered </h3>
+<ul>
+    <li> <pre>{"name": "Aged Brie", "sellIn": 1, "quality": 1}         -- Expected Out sellIn:  0,  quality: 2</pre></li>
+    <li> <pre>{"name": "Aged Brie", "sellIn": 0, "quality": 50}        -- Expected Out sellIn: -1,  quality: 50</pre></li>
+    <li> <pre>{"name": "Backstage passes", "sellIn": -1, "quality": 2} -- Expected Out sellIn: -2,  quality: 0</pre></li>
+    <li> <pre>{"name": "Backstage passes", "sellIn": 9, "quality": 2}  -- Expected Out sellIn:  8,  quality: 4</pre></li>
+    <li> <pre>{"name": "Normal Item", "sellIn": -1, "quality": 55}     -- Expected Out sellIn: -2,  quality: 53</pre></li>
+    <li> <pre>{"name": "Normal Item", "sellIn": 2, "quality": 2}       -- Expected Out sellIn:  1,  quality: 1</pre></li>
+    <li> <pre>{"name": "Conjured", "sellIn": 2, "quality": 2}          -- Expected Out sellIn:  1,  quality: 0</pre></li>
+    <li> <pre>{"name": "Conjured", "sellIn": -1, "quality": 5}         -- Expected Out sellIn: -2,  quality: 1</pre></li>
+    <li> <pre>{"name": "Sulfuras", "sellIn": 2, "quality": 2}          -- Expected Out sellIn:  2,  quality: 2</pre></li>
+    <li> <pre>{"name": "INVALID ITEM", "sellIn": 2, "quality": 2}      -- Expected "Invalid Item"</pre></li>
+</ul>
+<h3>Example - type in the data as shown below that is starting from [ to ]</h3>
+<pre>
+  [ {"name": "Backstage passes", "sellIn": -1, "quality": 2} ]
+  or
+  [
+    {"name": "Normal Item", "sellIn": 2, "quality": 2},
+    {"name": "INVALID ITEM", "sellIn": 2, "quality": 2}
+  ]
+</pre>
+<h1>Update Inventory</h1>
+<form id="inventoryForm">
+    <label>
+        <textarea id="inventoryInput" rows="10" cols="50" placeholder="Enter inventory items as JSON"></textarea><br>
+    </label>
+        <button type="button" onclick="updateInventory()">Update Inventory</button>
+</form>
+<h2>Updated Inventory</h2>
+<pre id="inventoryOutPut"></pre>
+<script>
+    async function updateInventory() {
+        const input = document.getElementById('inventoryInput').value;
+        const response = await fetch('http://localhost:8080/api/inventory/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: input
+        });
+        const output = await response.json();
+        document.getElementById('inventoryOutPut').textContent = JSON.stringify(output, null, 2);
+    }
+</script>
+</body>
+</html>
