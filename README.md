@@ -12,8 +12,13 @@ Run `mvn test` to execute the unit tests
 
 ## Frontend
 
-1. Open `index.html` in your browser.
-2. Click "Update Inventory" to send a sample request. 
+1. Open `http://localhost:8080/index.html` in your browser.
+2. Enter data in the text are e.g 
+   [
+      {"name":"Aged Brie", "sellIn": 0, "quality": 2}
+      {"name": "Backstage passes", "sellIn": -2, "quality": 0}
+   ]
+3. Click "Update Inventory" to send a sample request. 
 
 ## Using POSTMAN or CURL
 Once the application is running , the API can be tested with tools
